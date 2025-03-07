@@ -66,12 +66,14 @@ This skeleton integrates the [Check](https://libcheck.github.io/check/) unit tes
 
 - **Installation:**
   On Ubuntu, install Check with:
-
-      sudo apt update && sudo apt install libcheck-dev
+  ```
+  sudo apt update && sudo apt install check
+  ```
 
   On macOS (with Homebrew), install with:
-
-      brew install check
+  ```
+  brew install check
+  ```
 
 ## Development Workflow
 
