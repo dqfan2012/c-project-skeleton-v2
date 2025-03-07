@@ -10,7 +10,7 @@ c-project-skeleton-v2/
 ├── build // Intermediate build files (object files, etc.)
 ├── c-project-skeleton-v2.code-workspace // VSCode workspace configuration
 ├── docs // Documentation
-│ └── DEVELOPMENT_WORKFLOW.md // Detailed development workflow guide
+│   └── DEVELOPMENT_WORKFLOW.md // Detailed development workflow guide
 ├── include // Header files
 ├── lib // Third-party libraries
 ├── Makefile // Primary build script
@@ -31,6 +31,7 @@ Ensure you have the following installed:
 - clang-format and clang-tidy
 - cppcheck, flawfinder, Splint
 - Valgrind (for Linux)
+- Check (for unit testing)
 - Other analysis tools as needed (e.g., SonarQube, Facebook Infer)
 
 ### Build and Run
@@ -51,6 +52,28 @@ Ensure you have the following installed:
   After building, run:
 
       ./bin/main
+
+## Unit Testing with Check
+
+This skeleton integrates the [Check](https://libcheck.github.io/check/) unit testing framework to help you write and run tests for your C code. The tests are located in the `tests/` directory.
+
+- **Compile and Run Tests:**
+  Simply run:
+
+      make test
+
+  This target compiles your test sources with the Check library and runs the resulting test runner executable.
+
+- **Installation:**
+  On Ubuntu, install Check with:
+  ```
+  sudo apt update && sudo apt install check
+  ```
+
+  On macOS (with Homebrew), install with:
+  ```
+  brew install check
+  ```
 
 ## Development Workflow
 
