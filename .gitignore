@@ -7,6 +7,9 @@
 # Don't blacklist directories
 !*/
 
+# Don't blacklist the Makefile
+!Makefile
+
 # Prerequisites
 *.d
 
