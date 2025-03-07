@@ -39,19 +39,25 @@ Ensure you have the following installed:
 - **Debug Build:**
   Compile with debug flags (no optimization, debug symbols included):
 
-      make debug
+  ```
+  make debug
+  ```
 
   The executable will be located in the bin/ directory.
 
 - **Release Build:**
   Compile with optimization:
 
-      make release
+  ```
+  make release
+  ```
 
 - **Run the Executable:**
   After building, run:
 
-      ./bin/main
+  ```
+  ./bin/main
+  ```
 
 ## Unit Testing with Check
 
@@ -60,20 +66,34 @@ This skeleton integrates the [Check](https://libcheck.github.io/check/) unit tes
 - **Compile and Run Tests:**
   Simply run:
 
-      make test
+  ```
+  make test
+  ```
 
   This target compiles your test sources with the Check library and runs the resulting test runner executable.
 
 - **Installation:**
   On Ubuntu, install Check with:
+
   ```
   sudo apt update && sudo apt install check
   ```
 
   On macOS (with Homebrew), install with:
+
   ```
   brew install check
   ```
+
+## Code Formatting Rules
+
+This project uses `clang-format` configured with Google's recommended formatting rules for C. Ensure your editor is set up to use clang-format for consistent code styling. You can run:
+
+```
+make format
+```
+
+to automatically format your code.
 
 ## Development Workflow
 
@@ -84,24 +104,24 @@ For detailed instructions on the development process—from writing code, runnin
 Use the following Makefile targets to improve code quality and debug your application:
 
 - **Format Code:**
-  make format
+  `make format`
 - **Static Analysis:**
-  - clang-tidy: make clang-tidy
-  - cppcheck: make cppcheck
-  - Flawfinder: make flawfinder
-  - Splint: make splint
+  - clang-tidy: `make clang-tidy`
+  - cppcheck: `make cppcheck`
+  - Flawfinder: `make flawfinder`
+  - Splint: `make splint`
 - **Sanitizers:**
-  - AddressSanitizer: make asan
-  - LeakSanitizer: make lsan
-  - ThreadSanitizer: make tsan
-  - Undefined Behavior Sanitizer: make ubsan
+  - AddressSanitizer: `make asan`
+  - LeakSanitizer: `make lsan`
+  - ThreadSanitizer: `make tsan`
+  - Undefined Behavior Sanitizer: `make ubsan`
 - **Coverage and Profiling:**
-  - LLVM Code Coverage: make llvm-coverage
-  - Valgrind (memcheck, cachegrind, callgrind, massif): make valgrind-memcheck, etc.
+  - LLVM Code Coverage: `make llvm-coverage`
+  - Valgrind (memcheck, cachegrind, callgrind, massif): `make valgrind-memcheck`, etc.
 - **SonarQube:**
-  Run SonarQube analysis with: make sonar-scanner (ensure your SonarQube instance is running)
+  Run SonarQube analysis with: `make sonar-scanner` (ensure your SonarQube instance is running)
 - **Debugger:**
-  Launch the debugger (gdb or lldb) with: make debugger
+  Launch the debugger (gdb or lldb) with: `make debugger`
 
 ## Contributing
 
