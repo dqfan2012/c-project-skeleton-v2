@@ -205,17 +205,28 @@ ubsan: clean debug
 	./$(EXEC)
 
 # LLVM code coverage target
-llvm-coverage: CC := clang
-llvm-coverage: CFLAGS += -fprofile-instr-generate -fcoverage-mapping
 llvm-coverage: clean
 	@echo "Building with coverage instrumentation..."
-	@rm -rf build bin
-	@mkdir -p coverage
-	$(MAKE) CC=clang CFLAGS="$(DEBUG_CFLAGS) -fprofile-instr-generate -fcoverage-mapping" $(EXEC)
+	@mkdir -p coverage/html
+
+	$(MAKE) CC=clang CFLAGS="$(DEBUG_CFLAGS) -fprofile-instr-generate -fcoverage-mapping" debug
+	$(MAKE) CC=clang CFLAGS="$(DEBUG_CFLAGS) -fprofile-instr-generate -fcoverage-mapping" test
+
 	LLVM_PROFILE_FILE="coverage/main.profraw" ./bin/main
-	$(LLVM_PROFDATA) merge -sparse coverage/main.profraw -o coverage/main.profdata
-	$(LLVM_COV) export --format=text --instr-profile=coverage/main.profdata ./bin/main > coverage/coverage_report.txt
-	@echo "Coverage report generated at coverage/coverage_report.txt"
+	LLVM_PROFILE_FILE="coverage/tests.profraw" ./bin/tests_runner
+
+	$(LLVM_PROFDATA) merge -sparse coverage/*.profraw -o coverage/combined.profdata
+
+	$(LLVM_COV) show \
+		./bin/main \
+		./bin/tests_runner \
+		--instr-profile=coverage/combined.profdata \
+		--format=html \
+		--output-dir=coverage/html \
+		src/ \
+		tests/
+
+	@echo "Coverage report generated at coverage/html. Open coverage/html/index.html in a browser."
 
 # --- Valgrind-Based Tools (Linux Only) ---
 VALGRIND_MEMCHECK   = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
