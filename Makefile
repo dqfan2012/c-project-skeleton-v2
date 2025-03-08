@@ -17,6 +17,11 @@
         test quality
 
 ###############################################################################
+# Project Configuration
+###############################################################################
+PROJECT = c-project-skeleton-v2
+
+###############################################################################
 # OS and Compiler Settings
 ###############################################################################
 OS := $(shell uname)
@@ -224,11 +229,17 @@ valgrind-massif: $(EXEC)
 
 # --- Other Analysis Tools ---
 CPPCHECK         = cppcheck
+DEPENDENCYCHECK  = $(HOME)/dependency-check/bin/dependency-check.sh
 FLAWFINDER       = flawfinder
 SPLINT           = splint
 
 cppcheck:
 	$(CPPCHECK) --enable=all --inconclusive --std=c17 --suppress=missingIncludeSystem --quiet $(SRCS)
+
+dependency-check:
+	@echo "Running OWASP Dependency Check..."
+	$(DEPENDENCYCHECK) --project $(PROJECT) --scan . --format HTML --out dependency-check-report.html
+	@echo "Dependency Check report generated: dependency-check-report.html"
 
 flawfinder:
 	$(FLAWFINDER) $(SRCS)
