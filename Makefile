@@ -68,6 +68,9 @@ else ifeq ($(CC),clang)
   DEBUG_CFLAGS  += $(DEBUG_CFLAGS_CLANG)
 endif
 
+# Add include directory flag
+COMMON_CFLAGS += -Iinclude
+
 # Final flag sets for each build type
 DEBUG_CFLAGS := $(COMMON_CFLAGS) $(DEBUG_CFLAGS)
 PROD_CFLAGS  := $(COMMON_CFLAGS) $(PROD_CFLAGS)
@@ -127,14 +130,14 @@ TEST_OBJS  = $(patsubst $(TEST_DIR)/%.c, $(BUILD_DIR)/%.test.o, $(TEST_SRCS))
 TEST_EXEC  = $(BIN_DIR)/tests_runner
 
 # Libraries required for Check. Adjust if necessary on your system.
-CHECK_LIBS = -lcheck -lm -lpthread
+CHECK_LIBS = -lcheck -lm -lpthread -lsubunit
 
 # Target to compile and run tests
 test: $(TEST_EXEC)
 	@echo "Running tests..."
 	./$(TEST_EXEC)
 
-$(TEST_EXEC): $(TEST_OBJS)
+$(TEST_EXEC): $(TEST_OBJS) $(filter-out $(BUILD_DIR)/main.o, $(OBJS))
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(CFLAGS) $^ $(CHECK_LIBS) -o $@
 
