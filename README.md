@@ -109,6 +109,7 @@ Use the following Makefile targets to improve code quality and debug your applic
   - clang-tidy: `make clang-tidy`
   - cppcheck: `make cppcheck`
   - Flawfinder: `make flawfinder`
+  - OWASP dependency-check: `make dependency-check`
   - Splint: `make splint`
 - **Sanitizers:**
   - AddressSanitizer: `make asan`
