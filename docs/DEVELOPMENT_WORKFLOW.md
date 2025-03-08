@@ -38,6 +38,7 @@ This document outlines the recommended workflow for developing, testing, and rel
     - `make clang-tidy` – for clang-tidy analysis.
     - `make cppcheck` – for additional static checks.
     - `make clang-analyze` – for Clang Static Analyzer.
+    - `make dependency-check` - to identify vulnerabilities in your dependencies. Ensure the OWASP Dependency Check CLI is installed at `$HOME/dependency-check`.
 - **Sanitizer Tests:**
   - Run memory sanitizers and other runtime checks:
     - `make asan` – to check for memory errors using AddressSanitizer.
