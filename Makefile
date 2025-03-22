@@ -75,6 +75,9 @@ COMMON_CFLAGS += -Iinclude
 DEBUG_CFLAGS := $(COMMON_CFLAGS) $(DEBUG_CFLAGS)
 PROD_CFLAGS  := $(COMMON_CFLAGS) $(PROD_CFLAGS)
 
+# Linker flags (applied to all builds)
+LINKER_FLAGS = -lm -lpthread
+
 ###############################################################################
 # Directories and Files
 ###############################################################################
@@ -114,7 +117,7 @@ release: $(EXEC)
 
 $(EXEC): $(OBJS)
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ $(LINKER_FLAGS) -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(BUILD_DIR)
@@ -129,9 +132,6 @@ TEST_SRCS  = $(wildcard $(TEST_DIR)/*.c)
 TEST_OBJS  = $(patsubst $(TEST_DIR)/%.c, $(BUILD_DIR)/%.test.o, $(TEST_SRCS))
 TEST_EXEC  = $(BIN_DIR)/tests_runner
 
-# Libraries required for Check. Adjust if necessary on your system.
-CHECK_LIBS = -lcheck -lm -lpthread -lsubunit
-
 # Target to compile and run tests
 test: $(TEST_EXEC)
 	@echo "Running tests..."
@@ -139,7 +139,7 @@ test: $(TEST_EXEC)
 
 $(TEST_EXEC): $(TEST_OBJS) $(filter-out $(BUILD_DIR)/main.o, $(OBJS))
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $^ $(CHECK_LIBS) -o $@
+	$(CC) $(CFLAGS) $^ $(LINKER_FLAGS) -o $@
 
 $(BUILD_DIR)/%.test.o: $(TEST_DIR)/%.c
 	@mkdir -p $(BUILD_DIR)
