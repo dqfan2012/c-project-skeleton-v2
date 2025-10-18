@@ -2,6 +2,10 @@
 
 A modern, well-organized C project skeleton that supports Linux and macOS. This project uses strict compiler flags, integrates a variety of static analysis and sanitization tools, and is configured for both debug and release builds. It’s designed to help you write high-quality, maintainable C code.
 
+## Repo Moved
+
+This repository has been moved to [https://github.com/samuel-stidham/c-project-skeleton](https://github.com/samuel-stidham/c-project-skeleton)
+
 ## Directory Structure
 
 ```bash
